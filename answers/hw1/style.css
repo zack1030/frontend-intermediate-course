@@ -1,0 +1,48 @@
+.bg {
+  position:fixed;
+  width:100%;
+  height:100%;
+  background-image: url("bg.jpg");
+  background-attachment: fixed;
+  top:0px;
+  left:0px;
+}
+
+.bg-filter {
+  position:fixed;
+  width:100%;
+  height:100%;
+  background-color:rgba(0, 0, 0, 0.5);
+  top:0px;
+  left:0px;
+}
+
+.channels {
+  width:975px;
+  background-color:#82FF82;
+  margin:auto;
+}
+
+.channels .ch {
+  width:320px;
+  height:257px;
+  background-color:#FFD382;
+  display:inline-block;
+}
+
+.channels .ch .ch-img {
+  position:relative;
+}
+
+.channels .ch .user-img {
+  position:relative;
+  width:65px;
+  height:65px;
+}
+
+.channels .ch .user-meta {
+  position:relative;
+  display:inline-block;
+  vertical-align:super;
+  color:lightgrey;
+}
