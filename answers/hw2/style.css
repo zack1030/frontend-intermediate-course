@@ -21,6 +21,12 @@ body {
 .col {
   width:300px;
   margin-bottom:20px;
+  transition-duration:1s;
+}
+
+.col:hover {
+  filter:brightness(150%);
+  box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
 }
 
 .preview img {
