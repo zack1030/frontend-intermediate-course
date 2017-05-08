@@ -2,8 +2,8 @@ $.ajax({
   type: "GET",
   url: "https://api.twitch.tv/kraken/streams/",
   headers:{'Client-ID':'8okp5kcn7dr13mazyq5anbwqvnlclp'},
-//  data: {'game':'League%20of%20Legends', 'limit':20},
-  data:{'limit':20},
+  data: {'game':'League of Legends', 'limit':20},
+//  data:{'limit':20},
   success: function(data, textStatus, jqXHR) {
     console.log(data.streams);
     $(".col").each(function(index) {
