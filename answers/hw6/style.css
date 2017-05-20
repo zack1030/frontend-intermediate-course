@@ -1,0 +1,61 @@
+body {
+  background: url("http://cdn.leagueoflegends.com/lolkit/1.1.6/resources/images/bg-default.jpg") no-repeat center;
+  background-attachment: fixed;
+  margin: 0;
+}
+body .container {
+  background-color: rgba(0,0,0,0.5);
+  min-height: 100vh;
+  padding-top: 30px;
+}
+body .container .row {
+  width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+body .container .row .col {
+  width: 300px;
+  margin-bottom: 20px;
+  transition-duration: 1s;
+}
+body .container .row .col:hover {
+  filter: brightness(150%);
+  box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+}
+body .container .row .col .preview img {
+  width: 100%;
+  height: 168.75px;
+  display: block;
+  background-image: url("https://static-cdn.jtvnw.net/ttv-static/404_preview-320x180.jpg");
+}
+body .container .row .col .bottom {
+  background: rgba(0,0,0,0.6);
+  padding: 10px;
+  display: flex;
+}
+body .container .row .col .bottom .avatar {
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 10px;
+  flex: 1;
+}
+body .container .row .col .bottom .avatar img {
+  width: 100%;
+  display: block;
+  background-image: url("https://static-cdn.jtvnw.net/ttv-static/404_preview-320x180.jpg");
+}
+body .container .row .col .bottom .intro {
+  color: #fff;
+  flex: 3;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+body .container .row .col .bottom .intro .channel_name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
