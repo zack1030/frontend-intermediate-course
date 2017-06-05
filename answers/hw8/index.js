@@ -1,9 +1,4 @@
-window.already_load = 0
-window.lang='zh-tw'
-window.event_handler = function () {
-  window.addEventListener('scroll', throttle(load_streams_info, 1000));
-}
-
+const utils = require('./utils.js')
 function throttle(fn, wait) {
     console.log('test');
     var time = Date.now();
@@ -19,8 +14,9 @@ function throttle(fn, wait) {
 }
 
 function load_streams_info() {
+  var lang = utils.get_lang();
   var r = new XMLHttpRequest();
-  var params = 'game='+encodeURIComponent('League of Legends')+`&limit=20&offset=${window.already_load}&language=${window.lang}`;
+  var params = 'game='+encodeURIComponent('League of Legends')+`&limit=20&offset=${window.already_load}&language=${lang}`;
   r.open("GET", `https://api.twitch.tv/kraken/streams/?${params}`, true);
   r.onload = function () {
     console.log(r.response);
@@ -51,17 +47,33 @@ function load_streams_info() {
   r.send(params);
 }
 
-window.change_lang = function (lang='') {
-  console.log(lang);
+function reload_lang_item() {
+  var lang = utils.get_lang();
+  document.getElementsByClassName("title")[0].innerHTML = utils.get_title();
+  reload_cols();
+}
+
+function reload_cols() {
   while (true) {
     var removed = document.getElementById('insert-before-this').previousSibling;
     if (removed == null) {break;}
     removed.remove();
   }
-  window.lang = lang;
   window.already_load = 0
-  load_streams_info(lang);
-  document.getElementsByClassName("title")[0].innerHTML = window.I18N[lang].TITLE;
+  load_streams_info();
 }
 
-load_streams_info()
+document.addEventListener('DOMContentLoaded', function () {
+  utils.set_lang('zh-tw');
+  reload_lang_item();
+  window.addEventListener('scroll', throttle(load_streams_info, 1000));
+  document.getElementById('set_en').addEventListener('click', function(){
+    utils.set_lang('en')
+    reload_lang_item();
+  });
+  document.getElementById('set_zhtw').addEventListener('click', function(){
+    utils.set_lang('zh-tw')
+    reload_lang_item();
+  });
+});
+

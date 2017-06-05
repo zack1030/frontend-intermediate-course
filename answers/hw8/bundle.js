@@ -63,19 +63,41 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports) {
 
-window.already_load = 0
-window.lang='zh-tw'
-window.event_handler = function () {
-  window.addEventListener('scroll', throttle(load_streams_info, 1000));
+var current_lang = 'zh-tw';
+function get_lang() {
+  return current_lang;
+}
+function set_lang(lang) {
+  current_lang = lang;
+}
+function get_title() {
+  if (current_lang === 'en'){
+    return 'The streams in English';
+  }
+  else if (current_lang === 'zh-tw') {
+    return '用中文直播的頻道';
+  }
 }
 
+module.exports = {
+  'get_lang':get_lang,
+  'set_lang':set_lang,
+  'get_title':get_title
+};
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const utils = __webpack_require__(0)
 function throttle(fn, wait) {
     console.log('test');
     var time = Date.now();
@@ -91,8 +113,9 @@ function throttle(fn, wait) {
 }
 
 function load_streams_info() {
+  var lang = utils.get_lang();
   var r = new XMLHttpRequest();
-  var params = 'game='+encodeURIComponent('League of Legends')+`&limit=20&offset=${window.already_load}&language=${window.lang}`;
+  var params = 'game='+encodeURIComponent('League of Legends')+`&limit=20&offset=${window.already_load}&language=${lang}`;
   r.open("GET", `https://api.twitch.tv/kraken/streams/?${params}`, true);
   r.onload = function () {
     console.log(r.response);
@@ -123,49 +146,44 @@ function load_streams_info() {
   r.send(params);
 }
 
-window.change_lang = function (lang='') {
-  console.log(lang);
+function reload_lang_item() {
+  var lang = utils.get_lang();
+  document.getElementsByClassName("title")[0].innerHTML = utils.get_title();
+  reload_cols();
+}
+
+function reload_cols() {
   while (true) {
     var removed = document.getElementById('insert-before-this').previousSibling;
     if (removed == null) {break;}
     removed.remove();
   }
-  window.lang = lang;
   window.already_load = 0
-  load_streams_info(lang);
-  document.getElementsByClassName("title")[0].innerHTML = window.I18N[lang].TITLE;
+  load_streams_info();
 }
 
-load_streams_info()
+document.addEventListener('DOMContentLoaded', function () {
+  utils.set_lang('zh-tw');
+  reload_lang_item();
+  window.addEventListener('scroll', throttle(load_streams_info, 1000));
+  document.getElementById('set_en').addEventListener('click', function(){
+    utils.set_lang('en')
+    reload_lang_item();
+  });
+  document.getElementById('set_zhtw').addEventListener('click', function(){
+    utils.set_lang('zh-tw')
+    reload_lang_item();
+  });
+});
 
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-if (!window.I18N) window.I18N = {};
-window.I18N['en'] = {
-  TITLE: 'The streams in English'
-}
 
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-if (!window.I18N) window.I18N = {};
-window.I18N['zh-tw'] = {
-  TITLE: '用中文直播的頻道'
-}
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(0);
 __webpack_require__(1);
-module.exports = __webpack_require__(2);
+module.exports = __webpack_require__(0);
 
 
 /***/ })
