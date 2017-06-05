@@ -5,7 +5,7 @@ function throttle(fn, wait) {
     return function() {
         if(document.body.scrollTop + document.documentElement.clientHeight > document.documentElement.offsetHeight - 300) {
             if ((time + wait - Date.now()) < 0) {
-                window.already_load += 20;
+                utils.add_stream_count(20);
                 fn(false);
                 time = Date.now();
             }
@@ -15,8 +15,9 @@ function throttle(fn, wait) {
 
 function load_streams_info() {
   var lang = utils.get_lang();
+  var offset = utils.get_stream_count();
   var r = new XMLHttpRequest();
-  var params = 'game='+encodeURIComponent('League of Legends')+`&limit=20&offset=${window.already_load}&language=${lang}`;
+  var params = 'game='+encodeURIComponent('League of Legends')+`&limit=20&offset=${offset}&language=${lang}`;
   r.open("GET", `https://api.twitch.tv/kraken/streams/?${params}`, true);
   r.onload = function () {
     console.log(r.response);
@@ -59,7 +60,7 @@ function reload_cols() {
     if (removed == null) {break;}
     removed.remove();
   }
-  window.already_load = 0
+  utils.reset_stream_count();
   load_streams_info();
 }
 
