@@ -23,6 +23,7 @@
   "dependencies": {
     "gulp-babel": "^6.1.2",
     "gulp-jshint": "^2.0.4",
+    "gulp-replace": "^0.5.4",
     "jshint": "^2.9.4"
   }
 }
