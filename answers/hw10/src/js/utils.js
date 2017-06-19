@@ -1,33 +1,33 @@
-var current_lang = 'zh-tw';
-function get_lang() {
-  return current_lang;
+let currentLang = 'zh-tw';
+function getLang() {
+  return currentLang;
 }
-function set_lang(lang) {
-  current_lang = lang;
+function setLang(lang) {
+  currentLang = lang;
 }
-function get_title() {
-  if (current_lang === 'en'){
+function getTitle() {
+  if (currentLang === 'en') {
     return 'The streams in English';
-  }
-  else if (current_lang === 'zh-tw') {
+  } else if (currentLang === 'zh-tw') {
     return '用中文直播的頻道';
   }
+  return '';
 }
-var stream_count = 0;
-function add_stream_count(adder) {
-  stream_count += adder;
+let streamCount = 0;
+function addStreamCount(adder) {
+  streamCount += adder;
 }
-function reset_stream_count() {
-  stream_count = 0;
+function resetStreamCount() {
+  streamCount = 0;
 }
-function get_stream_count() {
-  return stream_count;
+function getStreamCount() {
+  return streamCount;
 }
 module.exports = {
-  'get_lang':get_lang,
-  'set_lang':set_lang,
-  'get_title':get_title,
-  'add_stream_count':add_stream_count,
-  'reset_stream_count':reset_stream_count,
-  'get_stream_count':get_stream_count
+  get_lang: getLang,
+  set_lang: setLang,
+  get_title: getTitle,
+  add_stream_count: addStreamCount,
+  reset_stream_count: resetStreamCount,
+  get_stream_count: getStreamCount,
 };
